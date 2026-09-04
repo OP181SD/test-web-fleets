@@ -1,0 +1,32 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum FleetColor {
+  blue
+  cyan
+  green
+  yellow
+  orange
+  red
+  pink
+  violet
+}
+
+model Fleet {
+  id             String     @id @default(cuid())
+  title          String
+  description    String?
+  color          FleetColor
+  companiesCount Int
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  @@index([createdAt(sort: Desc), id(sort: Desc)])
+}
